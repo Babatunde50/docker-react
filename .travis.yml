@@ -1,0 +1,9 @@
+sudo: required 
+services: 
+    - docker 
+
+before_install: 
+    - docker build -t babatundeola/docker-react -f Dockerfile.dev . 
+
+script:
+    - docker run babatundeola/docker-react npm run test -- --coverage
