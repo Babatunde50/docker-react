@@ -1,22 +1,20 @@
-sudo: required 
-services: 
-    - docker 
+sudo: required
+services:
+  - docker
 
-before_install: 
-    - docker build -t babatundeola/docker-react -f Dockerfile.dev . 
+before_install:
+  - docker build -t babatundeola/docker-react -f Dockerfile.dev .
 
 script:
-    - docker run -e CI=true babatundeola/docker-react npm run test -- --coverage
+  - docker run -e CI=true babatundeola/docker-react npm run test -- --coverage
 
 deploy:
-    provider: elasticbeanstalk
-    region: "us-east-2"
-    app: "docker-react"
-    env: "DockerReact-env-1"
-    bucket_name: "elasticbeanstalk-us-east-2-867931489818"
-    bucket_path: "docker-react"
-    on:
-        branch: master
-    access_key_id: $AWS_ACCESS_KEY 
-    secret_access_key: $AWS_SECRET_KEY  
-    edge: true
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env-1"
+  bucket_name: "elasticbeanstalk-us-east-2-867931489818"
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
